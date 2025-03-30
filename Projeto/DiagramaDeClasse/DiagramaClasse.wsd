@@ -1,0 +1,94 @@
+@startuml diagramaDeClasse
+
+package "Sistema de Aluguel" {
+    class Usuario {
+        - ID : int
+        - Nome : String
+        - Email : String
+        - Senha : String
+        + login() : void
+        + logout() : void
+    }
+    
+    class Contratantes {
+        - RG : Long
+        - CPF : Long
+        - Endereco : String
+        - Profissao : String
+        - Empregadora : String
+        - Rendimentos : Double
+        + cadastrarContratante(): void
+    }
+    
+    class Agentes {
+        - Tipo : String
+        - CNPJ : String
+        + cadastrarAgente() : void
+    }
+    
+    class Pedidos {
+        - ID : int
+        - Parecer : boolean
+        - Cliente : Cliente
+        - Agente : Agente
+        - Automovel : Automovel
+        - Status : Status
+        + introduzirPedido() : void
+        + consultarPedido() : void
+        + cancelarPedido() : void
+        + modificarPedido() : void
+        + avaliarPedido() : void
+        + associarContrato() : void
+    }
+    
+    class Contrato {
+        - ID : int
+        - Pedido : Pedido
+        - Cliente : Cliente
+        - Agente : Agente
+        - Tipo : TipoContrato
+        - Valor : Double
+        + gerarContrato() : void
+        + validarContrato() : void
+    }
+    
+    class Automovel {
+        - Matricula : int
+        - Ano : Date
+        - Marca : String
+        - Modelo : String
+        - Placa : String
+        - Proprietario : String
+        + registrarAutomovel() : void
+        + consultarDetalhes() : void
+    }
+
+    class Cliente{
+     - Nome : String
+     - ID : int
+     - CNPJ : String
+     - Automoveis[ ] : Automovel
+     + cadastrarCliente () : void
+    }
+    
+    enum Status {
+        Pendente
+        Aprovado
+        Cancelado
+    }
+    
+    enum TipoContrato {
+        Aluguel
+    }
+    
+    Usuario <|-- Contratantes
+    Usuario <|-- Agentes
+    Usuario <|-- Cliente
+    Usuario --> Pedidos : "1..*"
+    Cliente --> Automovel : "1..*"
+    
+    Pedidos "0..*" - "0..1" Automovel
+    (Pedidos, Automovel) .. Contrato
+}
+
+@enduml

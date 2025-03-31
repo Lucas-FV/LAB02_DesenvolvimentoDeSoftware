@@ -1,0 +1,52 @@
+@startuml
+
+package "Sistema de Gestão de Aluguéis" {
+    package "Interface" {
+        class Login
+        class Cadastro
+        class ConsultaPedidos
+        class CriacaoPedidos
+    }
+
+    package "Controle" {
+        class PedidoController
+        class UsuarioController
+        class AutomovelController
+        class ContratoController
+    }
+
+    package "Modelo" {
+        class Pedido
+        class Usuario
+        class Automovel
+        class Contrato
+    }
+
+    package "Persistência" {
+        class PedidoDAO
+        class UsuarioDAO
+        class AutomovelDAO
+        class ContratoDAO
+    }
+}
+
+' Relacionamentos
+Login --> UsuarioController
+Cadastro --> UsuarioController
+ConsultaPedidos --> PedidoController
+CriacaoPedidos --> PedidoController
+
+PedidoController --> Pedido
+PedidoController --> PedidoDAO
+UsuarioController --> Usuario
+UsuarioController --> UsuarioDAO
+AutomovelController --> Automovel
+AutomovelController --> AutomovelDAO
+ContratoController --> Contrato
+ContratoController --> ContratoDAO
+
+Pedido --> Contrato
+Pedido --> Automovel
+Pedido --> Usuario
+
+@enduml

@@ -1,0 +1,53 @@
+@startuml
+
+package "Sistema de Aluguel" {
+    component "Interface Web" 
+    component "Controlador" 
+    component "Gestão de Pedidos e Contratos" 
+    component "Construção Dinâmica de Páginas" 
+    component "Banco de Dados" 
+
+    interface IControlador
+    interface IGestaoPedidos
+    interface IConstrucaoPaginas
+
+    "Interface Web" --> IControlador
+    IControlador --> "Controlador"
+    "Controlador" --> IGestaoPedidos
+    "Controlador" --> IConstrucaoPaginas
+
+    IGestaoPedidos --> "Gestão de Pedidos e Contratos"
+    IConstrucaoPaginas --> "Construção Dinâmica de Páginas"
+
+    "Gestão de Pedidos e Contratos" ..> "Banco de Dados"
+    "Construção Dinâmica de Páginas" ..> "Banco de Dados"
+
+    component "Cadastro de Usuários"
+    component "Gerenciamento de Pedidos"
+    component "Gestão de Contratos"
+    component "Registro de Automóveis"
+    component "Avaliação Financeira"
+
+    "Gestão de Pedidos e Contratos" --> "Cadastro de Usuários"
+    "Gestão de Pedidos e Contratos" --> "Gerenciamento de Pedidos"
+    "Gestão de Pedidos e Contratos" --> "Gestão de Contratos"
+    "Gestão de Pedidos e Contratos" --> "Registro de Automóveis"
+    "Gestão de Pedidos e Contratos" --> "Avaliação Financeira"
+
+    "Cadastro de Usuários" ..> "Banco de Dados"
+    "Gerenciamento de Pedidos" ..> "Banco de Dados"
+    "Gestão de Contratos" ..> "Banco de Dados"
+    "Registro de Automóveis" ..> "Banco de Dados"
+    "Avaliação Financeira" ..> "Banco de Dados"
+
+    component "Gerador de Páginas Web"
+    component "Autenticação de Usuários"
+
+    "Construção Dinâmica de Páginas" --> "Gerador de Páginas Web"
+    "Construção Dinâmica de Páginas" --> "Autenticação de Usuários"
+
+    "Gerador de Páginas Web" ..> "Banco de Dados"
+    "Autenticação de Usuários" ..> "Banco de Dados"
+}
+
+@enduml

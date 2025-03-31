@@ -6,12 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.labdev.labdev_spring.models.Cliente;
 import com.labdev.labdev_spring.repositories.ClienteRepository;
-
-import java.util.Arrays;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -28,7 +24,7 @@ public class ClienteController {
   List<Cliente> clientes = this.clienteRepository.findAll();
 
   ModelAndView mv = new ModelAndView("clientes/index");
-  mv.addObject("clientes", clientes); // ✅ Corrigido para "clientes" (tudo minúsculo)
+  mv.addObject("clientes", clientes);
 
   return mv;
  }

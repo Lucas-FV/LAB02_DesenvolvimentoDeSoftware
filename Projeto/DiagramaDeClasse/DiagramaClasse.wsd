@@ -10,7 +10,7 @@ package "Sistema de Aluguel" {
         + logout() : void
     }
     
-    class Contratantes {
+    class Cliente {
         - RG : Long
         - CPF : Long
         - Endereco : String
@@ -63,14 +63,6 @@ package "Sistema de Aluguel" {
         + consultarDetalhes() : void
     }
 
-    class Cliente{
-     - Nome : String
-     - ID : int
-     - CNPJ : String
-     - Automoveis[ ] : Automovel
-     + cadastrarCliente () : void
-    }
-    
     enum Status {
         Pendente
         Aprovado
@@ -81,11 +73,10 @@ package "Sistema de Aluguel" {
         Aluguel
     }
     
-    Usuario <|-- Contratantes
+
     Usuario <|-- Agentes
     Usuario <|-- Cliente
     Usuario --> Pedidos : "1..*"
-    Cliente --> Automovel : "1..*"
     
     Pedidos "0..*" - "0..1" Automovel
     (Pedidos, Automovel) .. Contrato

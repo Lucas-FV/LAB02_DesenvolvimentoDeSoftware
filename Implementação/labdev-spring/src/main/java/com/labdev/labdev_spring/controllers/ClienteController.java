@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.labdev.labdev_spring.dto.RequisicaoCliente;
 import com.labdev.labdev_spring.models.Cliente;
 import com.labdev.labdev_spring.repositories.ClienteRepository;
 import java.util.List;
@@ -35,7 +37,12 @@ public class ClienteController {
  }
  
  @PostMapping("/clientes")
- public String create(Cliente cliente){
+ public String create(RequisicaoCliente requisicao){
+
+  Cliente cliente = requisicao.toCliente();
+
+  this.clienteRepository.save(cliente);
+
   return "redirect:/clientes";
  }
 }

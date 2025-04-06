@@ -1,16 +1,35 @@
 package com.labdev.labdev_spring.dto;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client;
+
 import com.labdev.labdev_spring.models.Cliente;
 
-public class RequisicaoCliente {
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
 
- private long rg;
- private long cpf;
- private String nome;
- private String endereco;
- private String profissao;
- private String empregadora;
- private double rendimentos;
+public class RequisicaoCliente {
+  
+  @Digits(integer = 20, fraction = 0, message = "{error.foo.fooId.size}")
+  private long rg;
+
+  @Digits(integer = 20, fraction = 0, message = "{error.foo.fooId.size}")
+  private long cpf;
+
+  @NotBlank
+  private String nome;
+
+  @NotBlank
+  private String endereco;
+  
+  @NotBlank
+  private String profissao;
+
+  @NotBlank
+  private String empregadora;
+
+  @DecimalMin(value = "0.0", inclusive = false)
+  private double rendimentos;
 
  public long getRg() {
   return rg;
@@ -79,6 +98,28 @@ public class RequisicaoCliente {
   cliente.setRendimentos(this.rendimentos);
 
   return cliente;
+ }
+
+ public Cliente toCliente(Cliente cliente){
+  cliente.setRg(this.rg);
+  cliente.setCpf(this.cpf);
+  cliente.setNome(this.nome);
+  cliente.setEndereco(this.endereco);
+  cliente.setProfissao(this.profissao);
+  cliente.setEmpregadora(this.empregadora);
+  cliente.setRendimentos(this.rendimentos);
+
+  return cliente;
+ }
+
+ public void fromCliente(Cliente cliente){
+  this.rg = cliente.getRg();
+  this.cpf = cliente.getCpf();
+  this.nome = cliente.getNome();
+  this.endereco = cliente.getEndereco();
+  this.profissao = cliente.getProfissao();
+  this.empregadora = cliente.getEmpregadora();
+  this.rendimentos = cliente.getRendimentos();
  }
 
  @Override

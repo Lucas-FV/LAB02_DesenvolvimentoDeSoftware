@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Painel do Agente</title>
+</head>
+<body>
+    <h1>Painel de Análise de Pedidos</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Automóvel</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pedido : ${pedidos}">
+                <td th:text="${pedido.id}"></td>
+                <td th:text="${pedido.cliente.nome}"></td>
+                <td th:text="${pedido.automovel}"></td>
+                <td th:text="${pedido.status}"></td>
+                <td th:text="${pedido.dataPedido}"></td>
+                <td>
+                    <form th:action="@{'/agente/pedidos/' + ${pedido.id} + '/aprovar'}" method="post" style="display:inline;">
+                        <button type="submit">Aprovar</button>
+                    </form>
+                    <form th:action="@{'/agente/pedidos/' + ${pedido.id} + '/rejeitar'}" method="post" style="display:inline;">
+                        <button type="submit">Rejeitar</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/">Voltar</a>
+</body>
+</html>

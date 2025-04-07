@@ -13,37 +13,43 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
- @Autowired
- private ClienteUserDetailsService clienteDetailsService;
+    @Autowired
+    private ClienteUserDetailsService clienteDetailsService;
 
- @Bean
- public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-  http
-    .authorizeHttpRequests(auth -> auth
-      .requestMatchers("/", "/home", "/login", "/registro", "/css/**", "/js/**").permitAll()
-      .anyRequest().authenticated())
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/home", "/login", "/registro", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/agente/**").hasRole("AGENTE")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true)
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            )
+            .exceptionHandling(ex -> ex
+                .accessDeniedPage("/erro403") // Você pode criar uma página erro403.html se quiser
+            );
 
-    .formLogin(form -> form
-      .loginPage("/login")
-      .defaultSuccessUrl("/", true)
-      .permitAll())
-    .logout(logout -> logout
-      .logoutSuccessUrl("/login?logout")
-      .permitAll());
+        return http.build();
+    }
 
-  return http.build();
- }
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(clienteDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
 
- @Bean
- public DaoAuthenticationProvider authProvider() {
-  DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-  authProvider.setUserDetailsService(clienteDetailsService);
-  authProvider.setPasswordEncoder(passwordEncoder());
-  return authProvider;
- }
-
- @Bean
- public PasswordEncoder passwordEncoder() {
-  return new BCryptPasswordEncoder();
- }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

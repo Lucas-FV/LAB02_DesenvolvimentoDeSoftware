@@ -27,6 +27,12 @@ public class RequisicaoCliente {
 
   @DecimalMin(value = "0.0", inclusive = false)
   private double rendimentos;
+ 
+ @NotBlank
+ private String email;
+
+ @NotBlank
+ private String senha;
 
  public long getRg() {
   return rg;
@@ -97,7 +103,7 @@ public class RequisicaoCliente {
   return cliente;
  }
 
- public Cliente toCliente(Cliente cliente){
+ public void atualizarClienteExistente(Cliente cliente) {
   cliente.setRg(this.rg);
   cliente.setCpf(this.cpf);
   cliente.setNome(this.nome);
@@ -105,9 +111,8 @@ public class RequisicaoCliente {
   cliente.setProfissao(this.profissao);
   cliente.setEmpregadora(this.empregadora);
   cliente.setRendimentos(this.rendimentos);
-
-  return cliente;
- }
+  // ⚠️ não altera email nem senha
+}
 
  public void fromCliente(Cliente cliente){
   this.rg = cliente.getRg();

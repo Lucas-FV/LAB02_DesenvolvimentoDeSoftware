@@ -1,0 +1,51 @@
+@startuml DiagramaImplantacaoCompletoComInterfaces
+
+' Nós físicos
+node "Cliente\n:Navegador Web" as Cliente {
+    component "Interface Web - Cliente"
+}
+
+node "Agente\n:Navegador Web" as Agente {
+    component "Interface Web - Agente"
+}
+
+node "Servidor Central\n:Servidor de Aplicação" as ServidorApp {
+    
+    interface IControlador
+    interface IGestaoPedidos
+    interface IConstrucaoPaginas
+
+    component "Controlador" {
+        [Controlador] --> IGestaoPedidos
+        [Controlador] --> IConstrucaoPaginas
+    }
+
+    component "Gestão de Pedidos e Contratos" as GPC {
+        IGestaoPedidos --> GPC
+    }
+
+    component "Construção Dinâmica de Páginas" as CDP {
+        IConstrucaoPaginas --> CDP
+    }
+
+    component "Autenticação de Usuários"
+    component "Gerador de Páginas Web"
+}
+
+node "Servidor Central\n:Servidor de Banco de Dados" as ServidorBD {
+    database "Banco de Dados"
+}
+
+' Conexões entre nós (com protocolos)
+Cliente -[#blue,dashed]-> IControlador : <<HTTP>>
+Agente -[#blue,dashed]-> IControlador : <<HTTP>>
+
+ServidorApp -[#black]-> ServidorBD : <<TCP/IP>>
+
+' Conexões internas entre componentes
+GPC --> "Banco de Dados"
+CDP --> "Banco de Dados"
+"Autenticação de Usuários" --> "Banco de Dados"
+"Gerador de Páginas Web" --> "Banco de Dados"
+
+@enduml

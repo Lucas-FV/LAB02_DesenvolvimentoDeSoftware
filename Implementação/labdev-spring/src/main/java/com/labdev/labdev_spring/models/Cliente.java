@@ -23,6 +23,10 @@ public class Cliente {
  private String profissao;
  private String empregadora;
  private double rendimentos;
+ private String email;
+ private String senha;
+
+
 
 
  public Cliente (){
@@ -122,6 +126,30 @@ public class Cliente {
  public void setId(long id) {
   this.id = id;
  }
+
+ 
+ public String getEmail() {
+  return email;
+}
+
+
+
+ public void setEmail(String email) {
+  this.email = email;
+ }
+
+
+
+ public String getSenha() {
+  return senha;
+ }
+
+
+
+ public void setSenha(String senha) {
+  this.senha = senha;
+ }
+
 
 
 

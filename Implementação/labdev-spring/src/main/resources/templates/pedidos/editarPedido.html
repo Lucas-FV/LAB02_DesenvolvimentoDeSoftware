@@ -1,0 +1,80 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Pedido</title>
+
+  <link rel="stylesheet" th:href="@{/css/editarPedido.css}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+    crossorigin="anonymous" />
+</head>
+
+<body class="bg-light">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/clientes">Clientes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/pedidos">Pedidos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <div class="container mt-5">
+      <div class="form-container bg-white p-4 rounded shadow-sm">
+        <h2 class="mb-4">Editar Pedido</span></h2>
+
+        <form th:object="${requisicaoPedido}" th:action="@{'/pedidos/' + ${pedidoId}}" method="post">
+          <div class="col-12">
+            <label class="form-label">Cliente:</label>
+            <select class="form-select" name="clienteId">
+              <option th:each="cliente : ${clientes}"
+                      th:value="${cliente.id}"
+                      th:text="${cliente.nome}"
+                      th:selected="${cliente.id == requisicaoPedido.clienteId}">
+              </option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Agente:</label>
+            <input type="text" class="form-control" name="agente" th:value="${requisicaoPedido.agente}" />
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Status:</label>
+            <input type="text" class="form-control" name="status" th:value="${requisicaoPedido.status}" />
+          </div>
+
+          <div class="col-12 form-check mt-2">
+            <input type="checkbox" class="form-check-input" name="parecer" th:checked="${requisicaoPedido.parecer}" />
+            <label class="form-check-label">Parecer Aprovado</label>
+          </div>
+
+          <div class="d-flex justify-content-between mt-4">
+            <button type="submit" class="btn btn-danger">Salvar</button>
+            <a href="/pedidos" class="btn btn-outline-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+</html>

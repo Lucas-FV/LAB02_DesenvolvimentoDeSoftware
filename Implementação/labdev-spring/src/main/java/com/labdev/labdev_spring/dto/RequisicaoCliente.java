@@ -1,7 +1,4 @@
 package com.labdev.labdev_spring.dto;
-
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client;
-
 import com.labdev.labdev_spring.models.Cliente;
 
 import jakarta.validation.constraints.DecimalMin;

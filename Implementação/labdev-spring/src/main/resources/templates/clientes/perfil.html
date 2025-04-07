@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Meu Perfil</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/perfil.css}" />
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+    crossorigin="anonymous"
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pedidos">Pedidos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <h1>Meu Perfil</h1>
+
+      <p><strong>Nome:</strong> <span th:text="${cliente.nome}"></span></p>
+      <p><strong>Email:</strong> <span th:text="${cliente.email}"></span></p>
+      <p><strong>CPF:</strong> <span th:text="${cliente.cpf}"></span></p>
+      <p><strong>RG:</strong> <span th:text="${cliente.rg}"></span></p>
+      <p>
+        <strong>Endereço:</strong> <span th:text="${cliente.endereco}"></span>
+      </p>
+      <p>
+        <strong>Profissão:</strong> <span th:text="${cliente.profissao}"></span>
+      </p>
+      <p>
+        <strong>Empregadora:</strong>
+        <span th:text="${cliente.empregadora}"></span>
+      </p>
+      <p>
+        <strong>Rendimentos:</strong> R$
+        <span
+          th:text="${#numbers.formatDecimal(cliente.rendimentos, 1, 'COMMA', 2, 'POINT')}"
+        ></span>
+      </p>
+
+      <a th:href="@{/perfil/editar}">
+        <button>Editar Perfil</button>
+      </a>
+
+      <form th:action="@{/perfil/excluir}" method="post">
+        <input type="hidden" name="id" th:value="${cliente.id}" />
+        <button
+          type="submit"
+          onclick="return confirm('Tem certeza que deseja excluir seu perfil?')"
+        >
+          Excluir Perfil
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
